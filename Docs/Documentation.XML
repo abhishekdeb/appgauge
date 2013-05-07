@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AppGauge</name>
+    </assembly>
+    <members>
+        <member name="T:AppGauge.Data.BaseDB">
+            <summary>
+            This class is the Low-Level DataBase Processor. This actually doesn't hold any sql queries, rather, the way it should execute the queries.
+            </summary>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AppGauge.Data.BaseDB"/> class.
+            </summary>
+            <param name="CONNECTION_STRING">The CONNECTIO n_ STRING.</param>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.Initialize">
+            <summary>
+            Initializes this instance i.e. Creates a Connection Object.
+            </summary>
+            <remarks>No Need to call this explicitly</remarks>
+            <exception cref="T:System.Exception">Database Connection Error</exception>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.Connect">
+            <summary>
+            Connects this instance to DB.
+            </summary>
+            <returns>True if Connected</returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.Disconnect">
+            <summary>
+            Disconnects this instance.
+            </summary>
+            <returns>Returns true if success</returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.TestConnection">
+            <summary>
+            Tests the connection to the DB.
+            </summary>
+            <returns>True if connection successful</returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.Modify(System.String,System.Boolean)">
+            <summary>
+            Modifies the specified SQL query. Use Insert, Update and Delete Commands.
+            </summary>
+            <param name="SqlQuery">The SQL query.</param>
+            <param name="ReturnLastID">if set to <c>true</c> [return last ID].</param>
+            <returns>Last Inserted ID if Auto-Increment is on.</returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.Fetch(System.String)">
+            <summary>
+            Fetches the specified SQL query.
+            </summary>
+            <param name="SqlQuery">The SQL query.</param>
+            <returns>Result as DataTable</returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseDB.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:AppGauge.Data.BaseDB.ConnectionString" -->
+        <member name="P:AppGauge.Data.BaseDB.SQL">
+            <summary>
+            Gets or sets the SQL Query.
+            </summary>
+            <value>
+            The SQL.
+            </value>
+            <exception cref="T:System.Exception">Null Query Provided</exception>
+        </member>
+        <member name="T:AppGauge.Data.BaseRecord">
+            <summary>
+            This class is used as a medium level DataBase Processor. This class holds all the required DB operation Queries.
+            This class also provides custom query functions where queries can be directly inserted.
+            This class generally eliminates the use of writing common sql queries.
+            </summary>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AppGauge.Data.BaseRecord"/> class.
+            </summary>
+            <param name="CONNECTION_STRING">The CONNECTIO n_ STRING.</param>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.AppendColumns(System.String[])">
+            <summary>
+            Appends more columns to this Columns.
+            </summary>
+            <param name="MoreColumns">The more columns.</param>
+            <returns>True</returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.Insert(System.String[])">
+            <summary>
+            Inserts the specified values as Arrays.
+            </summary>
+            <param name="Values">The values in Array.</param>
+            <returns>Last inserted ID</returns>
+            <exception cref="T:System.Exception">Insufficient Values Supplied. PLease check the length if the Values with the Columns</exception>
+            <example>Insert(new string[]{"Pass","email","etc"});</example>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.Update(System.String,System.String[])">
+            <summary>
+            Updates the specified key.
+            </summary>
+            <param name="Key">The key.</param>
+            <param name="Values">The values.</param>
+            <returns></returns>
+            <exception cref="T:System.Exception">Insufficient Values Supplied. PLease check the length if the Values with the Columns</exception>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.CustomUpdate(System.String,System.String[],System.String[])">
+            <summary>
+            Updates the Table with Selective Columns.
+            </summary>
+            <param name="Key">The key.</param>
+            <param name="Fields">The fields.</param>
+            <param name="Values">The values.</param>
+            <returns></returns>
+            <exception cref="T:System.Exception">Insufficient Values Supplied. PLease check the length of the Values with the Fields Provided</exception>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.Delete(System.String)">
+            <summary>
+            Deletes the specified key.
+            </summary>
+            <param name="Key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.View(System.String)">
+            <summary>
+            Views the specified key.
+            </summary>
+            <param name="Key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.CustomView(System.String,System.String[])">
+            <summary>
+            Customs the view.
+            </summary>
+            <param name="Key">The key.</param>
+            <param name="CustomColumns">The custom columns.</param>
+            <returns>DataTable that consists the result</returns>
+            <example>CustomView(23,new string[]{"name"});</example>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.Search(System.String,System.String[])">
+            <summary>
+            Searches the specified search item.
+            </summary>
+            <param name="SearchItem">The search item.</param>
+            <param name="Fields">The fields.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.CustomQuery(System.String)">
+            <summary>
+            Execute a Custom query.
+            </summary>
+            <param name="SQLQuery">The SQL query.</param>
+            <returns>Scalar Value</returns>
+        </member>
+        <member name="M:AppGauge.Data.BaseRecord.CustomQuery(System.String,System.Data.DataTable@)">
+            <summary>
+            Execute a Custom query with DataTable.
+            </summary>
+            <param name="Query">The query.</param>
+            <param name="DATA_TABLE">The DataTable as ref.</param>
+            <example>
+            DataTable dt= new DataTable();
+            CustomQuery("select * from tbl",ref dt);
+            </example>
+        </member>
+        <member name="P:AppGauge.Data.BaseRecord.Table">
+            <summary>
+            Gets or sets the table.
+            </summary>
+            <value>
+            The table.
+            </value>
+            <exception cref="T:System.Exception">Invalid Table Name</exception>
+        </member>
+        <member name="P:AppGauge.Data.BaseRecord.TKey">
+            <summary>
+            Gets or sets the T key.
+            </summary>
+            <value>
+            The T key.
+            </value>
+            <exception cref="T:System.Exception">Invalid Primary Key</exception>
+        </member>
+        <member name="P:AppGauge.Data.BaseRecord.Columns">
+            <summary>
+            Gets or sets the columns.
+            </summary>
+            <value>
+            The columns.
+            </value>
+            <exception cref="T:System.Exception">Invalid Columns Structure. Columns should be less than 50</exception>
+        </member>
+        <member name="T:AppGauge.Debug.ErrorSpy">
+            <summary>
+            This class hold all error codes.
+            0 - Success
+            1 - Account
+            2 - DataBase
+            3 - Session/Cookie
+            4 - Security
+            </summary>
+        </member>
+        <member name="T:AppGauge.Web.bAccount">
+            <summary>
+            Authentication Class is used for Web Page Authentication.
+            </summary>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.onLogin(System.Int32)">
+            <summary>
+            Executes after Login is Successfull.
+            </summary>
+            <remarks>Override this in pAccount (Account.PAL.cs) i.e. the Presentation Layer of Account</remarks>
+            <param name="Uid">The uid.</param>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.onLogout">
+            <summary>
+            Executes after Logout.
+            </summary>
+            <remarks>Override this in pAccount (Account.PAL.cs) i.e. the Presentation Layer of Account</remarks>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.onRegister">
+            <summary>
+            Executes before Registration.
+            </summary>
+            <remarks>Override this in pAccount (Account.PAL.cs) i.e. the Presentation Layer of Account</remarks>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.Login(System.String,System.String)">
+            <summary>
+            Logins the specified user name.
+            </summary>
+            <param name="UserName">Name of the user.</param>
+            <param name="Password">The password.</param>
+            <returns>Executes OnLogin Method from pAccount Class on successfull Login. Else, Returns Error Code.</returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.SubLogin(System.String)">
+            <summary>
+            Sub Login Helps you where you need extra protection, such as, requiring password while editing securty settings.
+            </summary>
+            <param name="Password">The password.</param>
+            <remarks>It is also used by the main Login Method.</remarks>
+            <returns>1 if OK else, Negative No.</returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.Logout">
+            <summary>
+            Logouts this instance. Runs the OnLogout Method from class pAccount.
+            </summary>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.Register(System.String[])">
+            <summary>
+            Registers a new account
+            </summary>
+            <param name="Values">Array of Columns Values In Order</param>
+            <returns>Generated UserId.</returns>
+            <remarks>This UserId is not to be used as Login Id.</remarks>
+            <value>Specified Values must be given in the order of the columns in the table without the Primary Key</value>
+            <example>Register(new string[]{"pass123","asd@asd.sd","..."});</example>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.MatchPass(System.Byte[],System.Byte[])">
+            <summary>
+            Matches the passwords. Get the HASH values of the passwords first by GetHash Method
+            </summary>
+            <param name="p1">First Password in Byte[]</param>
+            <param name="p2">Second Password in Byte[]</param>
+            <returns>Returns True if Passwords Match,else, False</returns>
+            
+        </member>
+        <member name="M:AppGauge.Web.bAccount.GetHash(System.String,System.String)">
+            <summary>
+            Gets the hash value from UserID and Password.
+            </summary>
+            <param name="UserId">The user id.</param>
+            <param name="Password">The password.</param>
+            <returns>Byte[] Hash Value</returns>
+            <remarks>Use VARBINARY (20) Column in SQL SERVER Database to stroe this value</remarks>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.checkUser">
+            <summary>
+            Checks if user is in the database or not.
+            </summary>
+            <param name="CheckId">if set to <c>true</c> [check id], It will search for UserID, else, UserName.</param>
+            <returns>
+            True of User is in the DB, else, fasle
+            </returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.GetUsrIdFromEmail">
+            <summary>
+            Gets the usr id from email.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.GetStoredPassword">
+            <summary>
+            Gets the stored password of the current user.
+            </summary>
+            <returns>Password as String</returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.GetUserDetails">
+            <summary>
+            Gets all the user details.
+            </summary>
+            <returns>DataTable Contaning all UserDetails</returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.SetPassword(System.String)">
+            <summary>
+            Sets the password.
+            </summary>
+            <param name="NewPassword">The new password.</param>
+            <returns>True if OK</returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.byte2string(System.Byte[])">
+            <summary>
+            Converts Byte Array to String.
+            </summary>
+            <param name="b">The byte Array</param>
+            <returns>String format of Byte Array</returns>
+        </member>
+        <member name="M:AppGauge.Web.bAccount.InitializeTableStructure(System.String,System.String,System.String[])">
+            <summary>
+            Modifies the table structure further.
+            </summary>
+            <param name="TableName">Name of the table. Default = tblUsr</param>
+            <param name="TKey">The Table Primary key. Default = slid</param>
+            <param name="MoreColumns">More columns that will be appended to existing Column. </param>
+        </member>
+        <member name="M:AppGauge.Web.dAccount.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AppGauge.Web.dAccount"/> class.
+            </summary>
+        </member>
+    </members>
+</doc>
